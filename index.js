@@ -16,24 +16,22 @@ app.use((req, res, next) => {
 })
 
 app.get('*', (req, res) => {
-    console.log(req)
     res.sendFile(__dirname + '/public/index.html')
 })
 
 app.post('*', (req, res) => {
     console.log(req.body)
     req.body
-        && sendEmail(req.body.name, req.body.email, req.body.message)
+        && sendEmail(req.body, res)
 })
 
 server.listen(port, () => {
     console.log('Server is listening on port', port)
 })
 
-function sendEmail(name, email, message) {
-    const recieverEmail = 'paintball.streljana.zagreb@gmail.com'
+function sendEmail(data, res) {
+    const recieverEmail = 'paintball.streljana@gmail.com'
     const recieverPass = 'Jasamsnajper5'
-    console.log("YAYYY")
     const transporter = nodemailer.createTransport({
         service: 'gmail',
         auth: {
@@ -44,25 +42,20 @@ function sendEmail(name, email, message) {
     const mailOptions = {
         from: recieverEmail,
         to: recieverEmail,
-        subject: name,
+        subject: data.name,
         text: `
         Ime pošaljitelja: 
+        ${data.name} 
         \n
-        ${name} 
+        Mail pošaljitelja: 
+        ${data.email} 
         \n
         Poruka: 
-        \n
-        \n
-        ${message}
+        ${data.message}
         `
     }
-
     transporter.sendMail(mailOptions, (error, info) => {
-        error && res.send(error)
-        console.log(error)
-        console.log(info)
-        res.send('Email sent: ' + info.response)
-
+        res.send(!!error)
     });
 }
 
