@@ -47,7 +47,7 @@ function sendEmail(data, res) {
         Ime pošaljitelja: 
         ${data.name} 
         \n
-        Mail pošaljitelja: 
+        Mail pošiljatelja: 
         ${data.email} 
         \n
         Poruka: 
@@ -55,6 +55,7 @@ function sendEmail(data, res) {
         `
     }
     transporter.sendMail(mailOptions, (error, info) => {
+        console.log("error: " + error)
         res.send(!!error)
     });
 }
