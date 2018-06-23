@@ -45,14 +45,15 @@ function sendEmail(data, res) {
         from: senderEmail,
         to: recieverEmail,
         subject: data.name,
-        text: `
-        Ime pošaljitelja: 
+        html: `
+        <b>Ime pošaljitelja: </b>
         ${data.name} 
-        \n
-        Mail pošiljatelja: 
+        <br>
+        <b>Mail pošiljatelja: </b>
         ${data.email} 
-        \n
-        Poruka: 
+        <br>
+        <b>Poruka: </b>
+        <br/>
         ${data.message}
         `
     }
