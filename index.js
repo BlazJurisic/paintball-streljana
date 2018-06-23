@@ -30,17 +30,18 @@ server.listen(port, () => {
 })
 
 function sendEmail(data, res) {
+    const senderEmail = 'paintball.streljana.zagreb@gmail.com'
+    const senderPass = 'Jasamsnajper5'
     const recieverEmail = 'paintball.streljana@gmail.com'
-    const recieverPass = 'Jasamsnajper5'
     const transporter = nodemailer.createTransport({
         service: 'gmail',
         auth: {
-            user: recieverEmail,
+            user: senderEmail,
             pass: recieverPass
         }
     });
     const mailOptions = {
-        from: recieverEmail,
+        from: senderEmail,
         to: recieverEmail,
         subject: data.name,
         text: `
